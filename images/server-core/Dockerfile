@@ -1,5 +1,3 @@
-FROM plugin_pack AS plugin_pack_layer
-
 FROM ubuntu:24.04 AS base
 
 ADD as-root.sh .
@@ -19,9 +17,6 @@ EXPOSE 27015/tcp 27015/udp
 ADD as-user.sh .
 RUN ./as-user.sh
 RUN test -f /home/louis/l4d2/srcds_run
-
-COPY --from=plugin_pack_layer --chown=louis:louis /overlay/addons/ /addons/
-COPY --from=plugin_pack_layer --chown=louis:louis /overlay/cfg/ /cfg/
 
 RUN ls -lah /home/louis \
  && ls -lah /home/louis/l4d2 \

@@ -3,19 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-
+      args:
+        SERVER_IMAGE: dsanc9996/l4docker:server-core
+        PLUGIN_IMAGE: dsanc9996/l4d2-plugin-pack:core
     image: dsanc9996/l4docker:latest
-
-    ports:
-    - "27020:27020/udp"
-    - "27020:27020/tcp"
-
-    environment:
-      HOSTNAME: "Diegoat's Server"
-      PORT: "27020"
-      DEFAULT_MAP: "c2m1_highway"
-      DEFAULT_MODE: "versus"
-      GAME_TYPES: "coop,versus,mutation"
-      STEAM_GROUP: "46044382"
-      REGION: "0"
-      RCON_PASSWORD: ""

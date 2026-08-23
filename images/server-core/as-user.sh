@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+
 # Install steamcmd
 mkdir -p .steam/sdk32/
 ln -s ~/linux32/steamclient.so ~/.steam/sdk32/steamclient.so
@@ -33,7 +35,15 @@ if [ "${INSTALL_DIR}" = "l4d2" ]; then
   @sSteamCmdForcePlatformType linux
   app_update ${GAME_ID} validate
   quit""" > first-install-l4d2.txt
-  ./steamcmd.sh +runscript first-install-l4d2.txt
+  for attempt in 1 2 3; do
+    ./steamcmd.sh +runscript first-install-l4d2.txt
+    if [ -f "/home/louis/${INSTALL_DIR}/srcds_run" ]; then
+      break
+    fi
+    echo "SteamCMD did not install L4D2; retrying (${attempt}/3)"
+    sleep 5
+  done
+  test -f "/home/louis/${INSTALL_DIR}/srcds_run"
 else
   ./steamcmd.sh +runscript update.txt
 fi
