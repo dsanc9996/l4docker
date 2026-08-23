@@ -1,3 +1,5 @@
+FROM plugin_pack AS plugin_pack_layer
+
 FROM ubuntu:24.04 AS base
 
 ADD as-root.sh .
@@ -18,8 +20,8 @@ ADD as-user.sh .
 RUN ./as-user.sh
 RUN test -f /home/louis/l4d2/srcds_run
 
-ADD get-mm-and-sm.sh .
-RUN ./get-mm-and-sm.sh
+COPY --from=plugin_pack_layer --chown=louis:louis /overlay/addons/ /addons/
+COPY --from=plugin_pack_layer --chown=louis:louis /overlay/cfg/ /cfg/
 
 RUN ls -lah /home/louis \
  && ls -lah /home/louis/l4d2 \
