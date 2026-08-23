@@ -1,4 +1,4 @@
-FROM rockylinux/rockylinux:9-minimal AS base
+FROM ubuntu:24.04 AS base
 
 ADD as-root.sh .
 RUN ./as-root.sh
@@ -16,6 +16,15 @@ EXPOSE 27015/tcp 27015/udp
 
 ADD as-user.sh .
 RUN ./as-user.sh
+RUN test -f /home/louis/l4d2/srcds_run
+
+ADD get-mm-and-sm.sh .
+RUN ./get-mm-and-sm.sh
+
+RUN ls -lah /home/louis \
+ && ls -lah /home/louis/l4d2 \
+ && test -f /home/louis/update.txt \
+ && test -f /home/louis/l4d2/srcds_run
 
 VOLUME ["/addons", "/cfg"]
 
