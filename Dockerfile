@@ -1,5 +1,5 @@
-ARG SERVER_IMAGE=dsanc9996/l4d2-server-core:latest
-ARG PLUGIN_IMAGE=dsanc9996/l4d2-plugin-pack:core
+ARG SERVER_IMAGE=dsanc9996/l4docker:server-core
+ARG PLUGIN_IMAGE=dsanc9996/l4docker:plugins-core
 
 FROM ${PLUGIN_IMAGE} AS plugins
 FROM ${SERVER_IMAGE}
