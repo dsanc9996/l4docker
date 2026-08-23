@@ -1,3 +1,9 @@
 services:
   l4d2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVER_IMAGE: dsanc9996/l4d2-server-core:latest
+        PLUGIN_IMAGE: dsanc9996/l4d2-plugin-pack:core
     image: dsanc9996/l4d2-server:standard
