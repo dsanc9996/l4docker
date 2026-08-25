@@ -8,3 +8,6 @@ services:
         PLUGIN_IMAGE: dsanc9996/l4docker:plugins-core
     image: dsanc9996/l4docker:standard
     network_mode: host
+    environment:
+      MOTD: "1"
+      MOTD_CONTENT: "http://REPLACE_WITH_WORKSHOP_COLLECTION_URL"
