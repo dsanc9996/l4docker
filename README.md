@@ -7,12 +7,18 @@ to build these images yourself, or pull them from our registry on [Docker Hub](h
 
 ## Getting Started
 
-Running a vanilla server can as simple as running:
+Start the standard L4D2 server with MetaMod, SourceMod, and the core plugin pack:
+
+```shell
+docker compose up -d
+```
+
+Or run the published image directly:
 
 ```shell
 docker run --name l4d2 \
-    --network host \
-left4devops/l4d2
+    --detach \
+    dsanc9996/l4docker:standard
 ```
 
 > [!IMPORTANT]
@@ -66,6 +72,10 @@ There are a couple of ways you can achieve this:
 * Servers on your LAN will be shown as Steam Group servers automatically
 
 ## Custom Addons
+
+### Future: distributable modpack images
+
+Keep the server core, plugin packs, and addon packs as independently published images. A final runtime image can assemble their filesystem overlays, while a root Buildx Bake definition builds the complete dependency graph from source with one command. This preserves plug-and-play modpack images without requiring users to discover and build each nested Dockerfile themselves.
 
 If you wanted to play a custom campaign on your server, or include sourcemod, you can mount a directory with any custom
 content into the `/addons/` directory.
