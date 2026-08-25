@@ -86,6 +86,8 @@ docker run --name l4d2-server-addons \
 left4devops/l4d2
 ```
 
+Custom campaigns still have to live on each player's machine (L4D2 will not FastDL maps). Point `MOTD_CONTENT` at a public Steam Workshop collection so the MOTD can send them there. The same `.vpk` files still need to be on the server under `/addons`.
+
 ## Configuration
 
 ### Environment Variables
@@ -105,7 +107,9 @@ left4devops/l4d2
 
 #### MOTD
 Automatically show the message of the day when players connect. Enable/disabled using `1`/`0`. Off (`0`) by default. If
-you run a lot of gameplay mods on your server, it can gbe helpful to outline them here 
+you run a lot of gameplay mods on your server, it can gbe helpful to outline them here.
+
+`docker compose` in this repo defaults `MOTD` to `1` so the MOTD opens on connect. Set `MOTD=0` in compose or pass `-e MOTD=0` to turn that off.
 
 #### HOST_CONTENT
 This is the slim banner shown at the top of the MOTD. In L4D1, it is also shown when players hold the `TAB` key.
@@ -116,8 +120,32 @@ By default, will show the hostname of your server. For simple banners, `HOST_CON
 For more complex host banners, leave `HOST_CONTENT` empty and use a volume mount `/motd/host.txt`.
 
 #### MOTD_CONTENT
-Works in a similar fashion to `MOTD_CONTENT`, but is only visible when viewing the MOTD.  This can be shown 
-automatically or when the user presses `h`. Mount for complex motd files is `/motd/motd.txt`
+Works in a similar fashion to `HOST_CONTENT`, but is only visible when viewing the MOTD. This can be shown
+automatically or when the user presses `h`. Mount for complex motd files is `/motd/motd.txt`.
+
+Use this for a public Steam Workshop collection URL so joining players can Subscribe to custom campaigns. Use **http**, not https — the game does not speak https, though L4D2 can follow a redirect to one.
+
+How to set or update `MOTD_CONTENT`:
+
+**compose** — edit the `MOTD_CONTENT` value in `docker-compose.yml` and recreate the container:
+
+```shell
+docker compose up -d
+```
+
+**docker run**:
+
+```shell
+docker run --name l4d2-motd \
+    --network host \
+    -e MOTD=1 \
+    -e MOTD_CONTENT="http://REPLACE_WITH_WORKSHOP_COLLECTION_URL" \
+left4devops/l4d2
+```
+
+**file mount** — leave `MOTD_CONTENT` empty and mount a file at `/motd/motd.txt`.
+
+Players: MOTD opens → Subscribe to the collection → restart Left 4 Dead 2 → reconnect. The server still needs the matching campaign `.vpk` files under `/addons`.
 
 #### REGION
 
