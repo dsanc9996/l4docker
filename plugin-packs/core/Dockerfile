@@ -6,7 +6,9 @@ RUN apt-get update \
 
 WORKDIR /build
 COPY get-mm-and-sm.sh .
+COPY install-plugins.sh plugins.lock ./
 RUN ./get-mm-and-sm.sh
+RUN ./install-plugins.sh
 
 FROM scratch
 

@@ -3,20 +3,24 @@
 > "Oh, MAN! This is just like Counter-Strike!"
 
 This repository can be used to build docker images for both Left 4 Dead and Left 4 Dead 2. You can use this repository
-to build these images yourself, or pull them from our registry on [Docker Hub](https://hub.docker.com/u/left4devops).
+to build these images yourself, or pull them from [Docker Hub](https://hub.docker.com/r/dsanc9996/l4docker).
 
 ## Getting Started
 
-Running a vanilla server can as simple as running:
+Start the standard L4D2 server with MetaMod, SourceMod, and the core plugin pack:
 
 ```shell
-docker run --name l4d2 \
-    --network host \
-left4devops/l4d2
+docker compose up -d
+```
+
+To rebuild the final image from the configured server and plugin-pack images before starting it, use:
+
+```shell
+docker compose up -d --build
 ```
 
 > [!IMPORTANT]
-> The above example uses host networking (`--network host`), which is the preferred networking method, as it allows the 
+> Compose uses host networking, which is the preferred networking method because it allows the
 > game server to correctly identify the IP of connecting players and can be used to ban players or anyone on the net 
 > attempting to force access to RCON. To use host networking on windows or macOS, **enable host networking** from 
 > [experimental features](https://docs.docker.com/network/network-tutorial-host/#prerequisites) in Docker version 4.29.
@@ -66,6 +70,10 @@ There are a couple of ways you can achieve this:
 * Servers on your LAN will be shown as Steam Group servers automatically
 
 ## Custom Addons
+
+### Future: distributable modpack images
+
+Keep the server core, plugin packs, and addon packs as independently published images. A final runtime image can assemble their filesystem overlays, while a root Buildx Bake definition builds the complete dependency graph from source with one command. This preserves plug-and-play modpack images without requiring users to discover and build each nested Dockerfile themselves.
 
 If you wanted to play a custom campaign on your server, or include sourcemod, you can mount a directory with any custom
 content into the `/addons/` directory.

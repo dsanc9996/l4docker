@@ -1,0 +1,2 @@
+# name|url|sha256|destination
+prevent_versus_shutdown|https://www.sourcemod.net/vbcompiler.php?file_id=208079|e7d590dedbcf2af6c6811367f488f70cda6af8ab93be3a21e77dc08509fbb479|addons/sourcemod/plugins/prevent_versus_shutdown.smx
