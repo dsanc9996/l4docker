@@ -7,3 +7,4 @@ services:
         SERVER_IMAGE: dsanc9996/l4docker:server-core
         PLUGIN_IMAGE: dsanc9996/l4docker:plugins-core
     image: dsanc9996/l4docker:standard
+    network_mode: host

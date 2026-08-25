@@ -3,7 +3,7 @@
 > "Oh, MAN! This is just like Counter-Strike!"
 
 This repository can be used to build docker images for both Left 4 Dead and Left 4 Dead 2. You can use this repository
-to build these images yourself, or pull them from our registry on [Docker Hub](https://hub.docker.com/u/left4devops).
+to build these images yourself, or pull them from [Docker Hub](https://hub.docker.com/r/dsanc9996/l4docker).
 
 ## Getting Started
 
@@ -13,16 +13,14 @@ Start the standard L4D2 server with MetaMod, SourceMod, and the core plugin pack
 docker compose up -d
 ```
 
-Or run the published image directly:
+To rebuild the final image from the configured server and plugin-pack images before starting it, use:
 
 ```shell
-docker run --name l4d2 \
-    --detach \
-    dsanc9996/l4docker:standard
+docker compose up -d --build
 ```
 
 > [!IMPORTANT]
-> The above example uses host networking (`--network host`), which is the preferred networking method, as it allows the 
+> Compose uses host networking, which is the preferred networking method because it allows the
 > game server to correctly identify the IP of connecting players and can be used to ban players or anyone on the net 
 > attempting to force access to RCON. To use host networking on windows or macOS, **enable host networking** from 
 > [experimental features](https://docs.docker.com/network/network-tutorial-host/#prerequisites) in Docker version 4.29.
