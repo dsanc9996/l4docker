@@ -52,6 +52,11 @@ else
 
     STARTUP+=("+mp_gamemode" "${DEFAULT_MODE}")
 
+    if [ "${MAX_PLAYERS:-0}" -gt 0 ]; then
+        STARTUP+=("+sv_setmax" "${MAX_PLAYERS}")
+        STARTUP+=("+sv_maxplayers" "${MAX_PLAYERS}")
+    fi
+
     # SourceMod needs a delayed map command on L4D2.
     SOURCEMOD_BOOTSTRAP=0
     if [[ -f "${GAME_DIR}/addons/sourcemod/bin/sourcemod.2.l4d2.so" ]]; then
