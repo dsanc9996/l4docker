@@ -23,10 +23,9 @@ RUN ls -lah /home/louis \
  && test -f /home/louis/update.txt \
  && test -f /home/louis/l4d2/srcds_run
 
-VOLUME ["/addons", "/cfg"]
-
 ENV DEFAULT_MAP=$DEFAULT_MAP \
     DEFAULT_MODE="coop" \
+    MAX_PLAYERS=31 \
     PORT=0 \
     HOSTNAME="Left4DevOps" \
     REGION=255 \

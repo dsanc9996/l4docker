@@ -6,5 +6,6 @@ services:
       args:
         SERVER_IMAGE: dsanc9996/l4docker:server-core
         PLUGIN_IMAGE: dsanc9996/l4docker:plugins-core
+        ADDON_IMAGE: dsanc9996/l4docker-addon:vanilla-plus
     image: dsanc9996/l4docker:standard
     network_mode: host
