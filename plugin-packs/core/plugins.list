@@ -1,0 +1,10 @@
+# name|url|overlay destination
+prevent-versus-shutdown|https://www.sourcemod.net/vbcompiler.php?file_id=208079|addons/sourcemod/plugins/prevent_versus_shutdown.smx
+all4dead2|https://raw.githubusercontent.com/fbef0102/L4D1_2-Plugins/a42e882ae130805a8a07f46968089eac5108f9d6/all4dead2/plugins/all4dead2.smx|addons/sourcemod/plugins/all4dead2.smx
+all4dead2-translations|https://raw.githubusercontent.com/fbef0102/L4D1_2-Plugins/a42e882ae130805a8a07f46968089eac5108f9d6/all4dead2/translations/all4dead2.phrases.txt|addons/sourcemod/translations/all4dead2.phrases.txt
+spawn-infected-nolimit|https://raw.githubusercontent.com/fbef0102/L4D1_2-Plugins/a42e882ae130805a8a07f46968089eac5108f9d6/spawn_infected_nolimit/plugins/spawn_infected_nolimit.smx|addons/sourcemod/plugins/spawn_infected_nolimit.smx
+spawn-infected-gamedata|https://raw.githubusercontent.com/fbef0102/L4D1_2-Plugins/a42e882ae130805a8a07f46968089eac5108f9d6/spawn_infected_nolimit/gamedata/spawn_infected_nolimit.txt|addons/sourcemod/gamedata/spawn_infected_nolimit.txt
+vote-manager|https://raw.githubusercontent.com/fbef0102/L4D1_2-Plugins/a42e882ae130805a8a07f46968089eac5108f9d6/l4d2_vote_manager3/plugins/l4d2_vote_manager3.smx|addons/sourcemod/plugins/l4d2_vote_manager3.smx
+vote-manager-translations|https://raw.githubusercontent.com/fbef0102/L4D1_2-Plugins/a42e882ae130805a8a07f46968089eac5108f9d6/l4d2_vote_manager3/translations/l4d2_vote_manager3.phrases.txt|addons/sourcemod/translations/l4d2_vote_manager3.phrases.txt
+weapon-spawner|https://raw.githubusercontent.com/Nodzimo/L4L-Server/84ffa12c93eab02a80821d43fe3a2c96ef0cf1fb/Setup/01.%20Core/05.%20Plugins/plugins/l4d2_weaponspawner.smx|addons/sourcemod/plugins/l4d2_weaponspawner.smx
+weapon-spawner-translations|https://raw.githubusercontent.com/Nodzimo/L4L-Server/84ffa12c93eab02a80821d43fe3a2c96ef0cf1fb/Setup/01.%20Core/05.%20Plugins/translations/weaponspawner.phrases.txt|addons/sourcemod/translations/weaponspawner.phrases.txt
