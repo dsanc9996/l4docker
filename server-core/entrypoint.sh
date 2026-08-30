@@ -16,6 +16,7 @@ if [ $# -gt 0 ]; then
     ./srcds_run "$@"
 else
     STARTUP=("./srcds_run" "-game" "${GAME_DIR}")
+    STARTUP+=("-tickrate" "${TICKRATE}")
     STARTUP+=("+sv_logecho" "1")
     STARTUP+=("+hostname" "${HOSTNAME}")
     STARTUP+=("+sv_region" "${REGION}")

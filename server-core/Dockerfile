@@ -25,6 +25,7 @@ RUN ls -lah /home/louis \
 
 ENV DEFAULT_MAP=$DEFAULT_MAP \
     DEFAULT_MODE="coop" \
+    TICKRATE=30 \
     MAX_PLAYERS=31 \
     PORT=0 \
     HOSTNAME="Left4DevOps" \
