@@ -1,2 +1,6 @@
 plugin-packs/local/
 .env
+
+*.cfg
+!plugin-packs/core/cfg/addonconfig.cfg
+plugin-packs/core/configs/admins_simple.ini

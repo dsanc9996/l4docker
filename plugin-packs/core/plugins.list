@@ -1,0 +1,3 @@
+# Add one direct-download file per line:
+# name|url|overlay destination
+# example|https://example.com/plugin.smx|addons/sourcemod/plugins/plugin.smx

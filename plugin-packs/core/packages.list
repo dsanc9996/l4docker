@@ -1,0 +1,3 @@
+# Add one file or directory from a ZIP or .tar.gz archive per line:
+# name|zip-or-tar|url|source path in archive|overlay destination
+# example|zip|https://example.com/package.zip|addons/sourcemod/plugins|addons/sourcemod/plugins
