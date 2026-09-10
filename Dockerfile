@@ -8,4 +8,5 @@ FROM ${SERVER_IMAGE}
 
 COPY --from=plugins --chown=louis:louis /overlay/addons/ /addons/
 COPY --from=plugins --chown=louis:louis /overlay/cfg/ /cfg/
+COPY --from=plugins --chown=louis:louis /overlay/game/ /home/louis/l4d2/left4dead2/
 COPY --from=addons --chown=louis:louis /overlay/addons/ /addons/

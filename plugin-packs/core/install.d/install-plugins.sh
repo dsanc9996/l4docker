@@ -5,6 +5,9 @@ LIST="${1:-plugins.list}"
 TARGET="${TARGET:-/overlay}"
 
 while IFS='|' read -r name url destination; do
+    name="${name%$'\r'}"
+    url="${url%$'\r'}"
+    destination="${destination%$'\r'}"
     case "${name}" in ''|'#'*) continue ;; esac
 
     output="${TARGET}/${destination}"

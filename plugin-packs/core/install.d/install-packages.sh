@@ -7,6 +7,11 @@ WORK="$(mktemp -d)"
 trap 'rm -rf "${WORK}"' EXIT
 
 while IFS='|' read -r name type url source destination; do
+    name="${name%$'\r'}"
+    type="${type%$'\r'}"
+    url="${url%$'\r'}"
+    source="${source%$'\r'}"
+    destination="${destination%$'\r'}"
     case "${name}" in ''|'#'*) continue ;; esac
 
     package="${WORK}/${name}"
