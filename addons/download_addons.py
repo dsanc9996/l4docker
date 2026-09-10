@@ -35,23 +35,23 @@ def get_addon_ids(collection_id: str) -> list[str]:
     return [child["publishedfileid"] for child in collection["children"]]
 
 
-def download_addon(workshop_id: str) -> None:
-    subprocess.run(
-        [
-            str(STEAMCMD),
-            "+force_install_dir",
-            str(DOWNLOAD_ROOT),
-            "+login",
-            "anonymous",
-            "+workshop_download_item",
-            APP_ID,
-            workshop_id,
-            "validate",
-            "+quit",
-        ],
-        check=True,
-    )
+def download_addons(workshop_ids: list[str]) -> None:
+    command = [
+        str(STEAMCMD),
+        "+force_install_dir",
+        str(DOWNLOAD_ROOT),
+        "+login",
+        "anonymous",
+    ]
+    for workshop_id in workshop_ids:
+        command.extend(
+            ["+workshop_download_item", APP_ID, workshop_id, "validate"]
+        )
+    command.append("+quit")
+    subprocess.run(command, check=True)
 
+
+def install_addon(workshop_id: str) -> None:
     downloaded = (
         DOWNLOAD_ROOT
         / "steamapps"
@@ -77,5 +77,7 @@ def download_addon(workshop_id: str) -> None:
 if len(sys.argv) != 2:
     raise SystemExit(f"Usage: {sys.argv[0]} COLLECTION_ID")
 
-for addon_id in get_addon_ids(sys.argv[1]):
-    download_addon(addon_id)
+addon_ids = get_addon_ids(sys.argv[1])
+download_addons(addon_ids)
+for addon_id in addon_ids:
+    install_addon(addon_id)
