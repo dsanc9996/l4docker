@@ -1,6 +1,8 @@
 import shutil
 import subprocess
 import sys
+import time
+from concurrent import futures
 from pathlib import Path
 
 import requests
@@ -9,6 +11,9 @@ import requests
 STEAMCMD = Path("/home/louis/steamcmd.sh")
 # L4D2 App ID
 APP_ID = "550"
+MAX_WORKERS = 4
+MAX_RETRIES = 3
+RETRY_DELAY_SECONDS = 5
 DOWNLOAD_ROOT = Path("/tmp/workshop")
 OUTPUT = Path("/overlay/addons")
 COLLECTION_URL = (
@@ -35,11 +40,14 @@ def get_addon_ids(collection_id: str) -> list[str]:
     return [child["publishedfileid"] for child in collection["children"]]
 
 
-def download_addons(workshop_ids: list[str]) -> None:
+def download_batch(worker_id: int, workshop_ids: list[str]) -> None:
+    # Separate install roots keep concurrent downloads' Workshop state apart.
+    download_root = DOWNLOAD_ROOT / f"worker-{worker_id}"
+    download_root.mkdir(parents=True, exist_ok=True)
     command = [
         str(STEAMCMD),
         "+force_install_dir",
-        str(DOWNLOAD_ROOT),
+        str(download_root),
         "+login",
         "anonymous",
     ]
@@ -49,11 +57,38 @@ def download_addons(workshop_ids: list[str]) -> None:
         )
     command.append("+quit")
     subprocess.run(command, check=True)
+    for workshop_id in workshop_ids:
+        install_addon(workshop_id, download_root)
 
 
-def install_addon(workshop_id: str) -> None:
+def retry(function, *args) -> None:
+    for attempt in range(MAX_RETRIES + 1):
+        try:
+            return function(*args)
+        except (subprocess.CalledProcessError, RuntimeError) as error:
+            if attempt == MAX_RETRIES:
+                raise
+            print(f"Retry {attempt + 1}/{MAX_RETRIES}: {error}", flush=True)
+            time.sleep(RETRY_DELAY_SECONDS)
+
+
+def download_addons(workshop_ids: list[str]) -> None:
+    with futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        # Each batch logs in once and keeps that session for all its downloads.
+        # Spread neighboring campaigns across workers with every-Nth-item slices.
+        downloads = [
+            executor.submit(
+                retry, download_batch, worker_id, workshop_ids[worker_id::MAX_WORKERS]
+            )
+            for worker_id in range(min(MAX_WORKERS, len(workshop_ids)))
+        ]
+        for download in futures.as_completed(downloads):
+            download.result()
+
+
+def install_addon(workshop_id: str, download_root: Path) -> None:
     downloaded = (
-        DOWNLOAD_ROOT
+        download_root
         / "steamapps"
         / "workshop"
         / "content"
@@ -79,5 +114,3 @@ if len(sys.argv) != 2:
 
 addon_ids = get_addon_ids(sys.argv[1])
 download_addons(addon_ids)
-for addon_id in addon_ids:
-    install_addon(addon_id)
